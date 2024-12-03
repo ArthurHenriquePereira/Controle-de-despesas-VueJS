@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-100">
     <!-- Menu Responsivo -->
-    <nav class="bg-blue-600 p-4">
+    <nav class="bg-green-600 p-4">
       <div class="container mx-auto flex justify-between items-center">
         <a href="#" class="text-white text-xl font-bold">Controle Financeiro</a>
         <div class="hidden md:flex space-x-4">
-          <router-link v-for="item in menuItems" :key="item.name" :to="item.path" class="text-white hover:text-blue-200">
+          <router-link v-for="item in menuItems" :key="item.name" :to="item.path" class="text-white hover:text-yellow-200">
             {{ item.name }}
           </router-link>
         </div>
@@ -18,9 +18,9 @@
     </nav>
 
     <!-- Menu Mobile -->
-    <div v-if="mobileMenuOpen" class="md:hidden bg-blue-500">
+    <div v-if="mobileMenuOpen" class="md:hidden bg-green-500">
       <router-link v-for="item in menuItems" :key="item.name" :to="item.path"
-        class="block py-2 px-4 text-white hover:bg-blue-600">
+        class="block py-2 px-4 text-white hover:bg-green-600">
         {{ item.name }}
       </router-link>
     </div>
