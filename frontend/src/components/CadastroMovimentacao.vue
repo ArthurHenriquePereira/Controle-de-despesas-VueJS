@@ -47,27 +47,33 @@
   
 <script setup>
 import { reactive } from 'vue'
+import axios from 'axios'
 
 const novaMovimentacao = reactive({
-    tipo: 'receita',
-    meses: 1,
-    descricao: '',
-    valor: 0,
-    data: '',
-    situacao: 'pago'
+  tipo: '',
+  meses: 0,
+  descricao: '',
+  valor: 0,
+  data: '',
+  situacao: ''
 })
 
-const cadastrarMovimentacao = () => {
-    console.log('Movimentação cadastrada:', novaMovimentacao)
-    // Aqui você implementaria a lógica para salvar no banco de dados
-    // Por enquanto, vamos apenas limpar o formulário
+const cadastrarMovimentacao = async () => {
+  try {
+    await axios.post('http://localhost:3000/api/cadastrarMovimentacao', novaMovimentacao)
+
     Object.assign(novaMovimentacao, {
-        tipo: 'receita',
-        meses: 1,
-        descricao: '',
-        valor: 0,
-        data: '',
-        situacao: 'pago'
+      tipo: '',
+      meses: 0,
+      descricao: '',
+      valor: 0,
+      data: '',
+      situacao: ''
     })
+    alert('Movimentação cadastrada com sucesso!')
+  } catch (error) {
+    console.error('Erro ao cadastrar movimentação:', error)
+    alert('Erro ao cadastrar movimentação. Por favor, tente novamente.')
+  }
 }
 </script>

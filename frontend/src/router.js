@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from './components/DashboardPage.vue'
 import CadastroMovimentacao from './components/CadastroMovimentacao.vue'
+import VerMovimentacoes from './components/VerMovimentacoes.vue'
 
 const routes = [
   { path: '/', component: Dashboard },
   { path: '/cadastro', component: CadastroMovimentacao },
-  // Adicione outras rotas conforme necessário
+  { path: '/movimentacoes', component: VerMovimentacoes },
 ]
 
 const router = createRouter({
