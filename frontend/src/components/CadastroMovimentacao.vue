@@ -48,8 +48,10 @@
 <script setup>
 import { reactive } from 'vue'
 import axios from 'axios'
+const userIdT = localStorage.getItem('userId');
 
 const novaMovimentacao = reactive({
+  userId: userIdT,
   tipo: '',
   meses: 0,
   descricao: '',
@@ -63,6 +65,7 @@ const cadastrarMovimentacao = async () => {
     await axios.post('http://localhost:3000/api/cadastrarMovimentacao', novaMovimentacao)
 
     Object.assign(novaMovimentacao, {
+      userId: userIdT,
       tipo: '',
       meses: 0,
       descricao: '',

@@ -45,6 +45,7 @@ const User = mongoose.model('User', UserSchema)
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization')
+  console.log(token)
   if (!token) return res.status(401).json({ error: 'Access denied' })
 
   try {
@@ -142,6 +143,7 @@ app.get('/api/profile', verifyToken, async (req, res) => {
 })
 
 const MovimentacaoSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   tipo: String,
   meses: Number,
   descricao: String,
@@ -155,23 +157,26 @@ const Movimentacao = mongoose.model('Movimentacao', MovimentacaoSchema);
 // Rota para cadastrar movimentação
 app.post('/api/cadastrarMovimentacao', async (req, res) => {
   try {
-    const novaMovimentacao = new Movimentacao(req.body);
-    await novaMovimentacao.save();
-    res.status(201).json(novaMovimentacao);
+    const novaMovimentacao = new Movimentacao({
+      ...req.body,
+      userId: req.user.userId,
+    })
+    await novaMovimentacao.save()
+    res.status(201).json(novaMovimentacao)
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message })
   }
-});
+})
 
 // Rota para listar todas as movimentações
 app.get('/api/movimentacoes', async (req, res) => {
   try {
-    const movimentacoes = await Movimentacao.find();
-    res.json(movimentacoes);
+    const movimentacoes = await Movimentacao.find({ userId: req.user._id })
+    res.json(movimentacoes)
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message })
   }
-});
+})
 
 // Rota para atualizar uma movimentação
 app.put('/api/movimentacoes/:id', async (req, res) => {
