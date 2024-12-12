@@ -3,7 +3,7 @@
     <!-- Menu Responsivo -->
     <nav class="bg-green-600 p-4">
       <div class="container mx-auto flex justify-between items-center">
-        <a href="#" class="text-white text-xl font-bold">Controle Financeiro</a>
+        <a href="/login" class="text-white text-xl font-bold">Controle Financeiro</a>
         <div class="hidden md:flex space-x-4">
           <router-link v-for="item in menuItems" :key="item.name" :to="item.path" class="text-white hover:text-yellow-200">
             {{ item.name }}
@@ -39,6 +39,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const menuItems = [
+
+  { name: 'Perfil', path: '/editProfile' },
   { name: 'Início', path: '/' },
   { name: 'Cadastro de Movimentação', path: '/cadastro' },
   { name: 'Ver Movimentação', path: '/movimentacoes' },
